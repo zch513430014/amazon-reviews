@@ -6,6 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from datetime import datetime
 
 
 class AmazonSpiderMiddleware(object):
@@ -53,8 +54,6 @@ class AmazonSpiderMiddleware(object):
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.started_on = datetime.now()
 
-class ProxyMiddleware(object):
-    def process_request(self,request,spider):
-        request.meta['proxy']='http://127.0.0.1:8081'
+
